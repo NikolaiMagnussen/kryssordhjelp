@@ -1,11 +1,12 @@
+#!/usr/bin/env python3
 import requests
 
-
-def test(word, page=0):
+def gratiskryssord(word, page=0):
     res = requests.get(f"https://gratiskryssord.no/api/crosswordbook/scroll/{word}/-1/{page}")
     data = res.json()
     if data['success'] == 1:
         return data['data']
+
 
 def main():
     from pprint import pprint
@@ -17,7 +18,7 @@ def main():
     if word == "":
         print("Error: you must provide a word!")
         return
-    res = test(word)
+    res = gratiskryssord(word)
 
     # Filter length
     if length != "":
