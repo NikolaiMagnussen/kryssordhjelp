@@ -19,6 +19,9 @@ def main():
         print("Error: you must provide a word!")
         return
     res = gratiskryssord(word)
+    if res is None:
+        print("We could not find that word :(")
+        return
 
     # Filter length
     if length != "":
