@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 import requests
 
-def gratiskryssord(word, page=0):
+def gratiskryssord(word):
+    return _gratiskryssord(word, 0, [])
+
+def _gratiskryssord(word, page, output):
     res = requests.get(f"https://gratiskryssord.no/api/crosswordbook/scroll/{word}/-1/{page}")
     data = res.json()
-    if data['success'] == 1:
-        return data['data']
+    if data['success'] == 1 and data['data']:
+        return _gratiskryssord(word, page+1, [*output, *data['data']])
+    return output
+
 
 
 def main():
