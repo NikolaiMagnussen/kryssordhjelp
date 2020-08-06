@@ -21,8 +21,11 @@ def kryssordkjempen(word):
     out = []
     if "Søket ditt ga ingen treff" not in results.text:
         for letter in results.find_all("li", "header"):
-            out.append({"strLength": letter.find("h2").text.split()[-2],
-                         "list": [synonym.find("a").text for synonym in letter.find_all("li", "synonym")]})
+            length = letter.find("h2").text.split()[-2]
+            syns = [x.find("a").text
+                    for x in letter.find_all("li", "synonym")
+                    if len(x.find("a").text) == int(length)]
+            out.append({"strLength": length, "list": syns})
     return out
 
 
